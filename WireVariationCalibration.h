@@ -15,20 +15,24 @@ class WireVariationCalibration {
       WireVariationCalibration(TTree *WireVariationCalibrationTree);
       WireVariationCalibration(TString WireVariationCalibrationTreeFile);
 
-
       // Variables
       Double_t dQdxMPVFromChannel(Short_t i_c);
-      Double_t dQdxMPVFromWire(Short_t i_w);
-      Double_t dQdxMPVGainCorrectedFromChannel(Short_t i_c);
-      Double_t dQdxMPVGainCorrectedFromWire(Short_t i_w);
+      Double_t dQdxMPVFromWire(Short_t i_p, Short_t i_w);
+      Double_t AveragedQdxMPV(Short_t i_p){return fAveragedQdxMPV[i_p];}
 
+      // Get correction
+      Double_t CorrectionFromChannel(Short_t i_c);
+      Double_t CorrectionFromWire(Short_t i_p, Short_t i_w);
+
+      void CalculateAveragedQdxMPV();
 
    private:
 
+      Short_t fTTreePlane;
       Short_t fTTreeChannel;
       Short_t fTTreeWire;
       Double_t fTTreedQdxMPV;
-      Double_t fTTreedQdxMPVGainCorrected;
+      Double_t fAveragedQdxMPV[3];
       TTree *fTree;
 
 };
